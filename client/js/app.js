@@ -57,15 +57,12 @@ app.controller("echoCtrl", ["socket", "echoService", function echoCtrl(socket, e
 					message: data.message
 				};
 				self.rowCollection.push(row);
-				console.log(this, data);
 			});
 	};
 	self.webSocketEmit = function webSocketEmit() {
 		echoService.webSocketEmit(self.message);
 	};
 	self.sendHttpMessageRecieveSocketResponse = function sendHttpMessageRecieveSocketResponse() {
-		echoService.sendHttpMessageRecieveSocketResponse(self.message).then(function (data, status, headers, config) {
-			console.log(data, status, headers, config);
-		});
+		echoService.sendHttpMessageRecieveSocketResponse(self.message).then(function (data, status, headers, config) {});
 	};
 }]);

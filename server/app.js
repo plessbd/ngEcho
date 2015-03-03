@@ -2,8 +2,10 @@ var express = require("express"),
 	path = require("path"),
 	app = express(),
 	server = require("http").Server(app),
-	bodyParser = require("body-parser");
-
+	bodyParser = require("body-parser"),
+	config = {
+		useIpv6: true
+	};
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
@@ -13,7 +15,7 @@ app.use(bodyParser.json());
 
 app.io = require("socket.io")(server);
 
-server.listen(8000, function serverListen() {
+server.listen(8000, config.useIpv6 ? "::" : "", function serverListen() {
 	console.log("server running on", this._connectionKey);
 });
 
