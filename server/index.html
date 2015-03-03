@@ -1,0 +1,79 @@
+<!doctype html>
+<!--[if lt IE 8]> <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js ie9 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" lang="en" ng-app="ngEcho">
+<!--<![endif]-->
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>Echo Server</title>
+	<meta name="description" content="Angular Frontend to an Echo Server for both socket.io and apis">
+	<meta name="author" content="Ben Plessinger">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
+	<style>
+		.st-sort-ascent:after {
+			content: '\25B2';
+		}
+		.st-sort-descent:after {
+			content: '\25BC';
+		}
+		.st-selected {
+			background: #216eff !important;
+			color: white !important;
+		}
+		[st-sort] {
+			cursor: pointer;
+		}
+
+	</style>
+
+</head>
+
+<body ng-controller="echoCtrl as echo">
+	<button type="button" class="btn btn-default" ng-model="echo.debugSocket" ng-click="echo.toggleDebug()" bs-checkbox>Debug socket.io</button>
+
+	<input ng-model="echo.message" />
+	<button ng-click="echo.sendHttpMessage()">Send via HTTP</button>
+	<button ng-click="echo.webSocketEmit()">Emit via Websocket</button>
+	<button ng-click="echo.sendHttpMessageRecieveSocketResponse()">Send via HTTP get via Socket</button>
+	<table st-table="displayedCollection" st-safe-src="echo.rowCollection" class="table table-striped">
+		<thead>
+			<tr>
+				<th st-sort-default="" st-sort="timestamp">Time</th>
+				<th st-sort="type">Type</th>
+				<th>Message</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="row in displayedCollection">
+				<td>
+					<span am-time-ago="row.timestamp"></span>
+				</td>
+				<td>{{row.type}}</td>
+				<td>{{row.message}}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/bower_components/angular/angular.js"></script>
+	<script src="/bower_components/angular-socket-io/socket.js"></script>
+
+	<script src="/bower_components/angular-animate/angular-animate.js"></script>
+	<script src="/bower_components/angular-strap/dist/angular-strap.js"></script>
+	<script src="/bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
+	<script src="/bower_components/angular-smart-table/dist/smart-table.js"></script>
+
+	<script src="/bower_components/moment/moment.js"></script>
+	<script src="/bower_components/angular-moment/angular-moment.js"></script>
+
+	<script src="/js/app.js"></script>
+
+</body>
+
+</html>
